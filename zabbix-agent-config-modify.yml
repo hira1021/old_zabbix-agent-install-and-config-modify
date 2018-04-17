@@ -1,0 +1,10 @@
+- name: modify zabbix-agent
+  hosts: all
+  sudo: yes
+  roles:
+    - name: common
+      tags:
+        - common
+    - name: zabbix-agent-config-modify
+      tags:
+        - zabbix-agent-config-modify
