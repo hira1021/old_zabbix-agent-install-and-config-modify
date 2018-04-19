@@ -1,0 +1,6 @@
+- name: Modify zabbix agent Config
+  hosts: zabbix_agents
+  lineinfile:
+    path: /etc/zabbix/zabbix_agentd.conf
+    regexp: '^Server='
+    line: "Server=172.16.1.1"

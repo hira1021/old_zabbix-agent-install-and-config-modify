@@ -1,0 +1,18 @@
+- hosts: all
+  sudo: yes
+  vars:
+        zabbix_server_ip: 192.168.215.175
+  tasks:
+   - name: Get zabbix_agentd config server ip
+     shell: cat /etc/zabbix/zabbix_agentd.conf | grep '^Server='
+     register: result
+
+   - name: debug result var
+     debug: var=result
+
+   - name: modify zabbix_agentd config
+     shell: sed -e "s/{{ zabbix_setup }}//"
+     register: result_after
+
+   - name: debug result after var
+     debug: var=result_after

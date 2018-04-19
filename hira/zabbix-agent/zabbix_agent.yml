@@ -1,0 +1,13 @@
+- name: Install zabbix agent
+  hosts: zabbix_agents
+  sudo: yes
+  roles:
+    - name: common
+      tags:
+        - common
+    - name: zabbix_agent
+      tags:
+        - zaanix_agent
+    - name: zabbix-add-host
+      tags:
+        - zabbix-add-host
