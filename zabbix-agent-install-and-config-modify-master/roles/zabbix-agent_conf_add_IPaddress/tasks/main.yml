@@ -1,0 +1,29 @@
+   - name: register zabbix_agentd config Server ip
+     shell: cat /etc/zabbix/zabbix_agentd.conf | grep '^Server='
+     register: result_Server_ip
+     changed_when: false
+
+   - name: modify zabbix_agentd config Server ip
+     lineinfile: >
+      dest=/etc/zabbix/zabbix_agentd.conf
+      state=present
+      backrefs=no
+      regexp='^Server=.*[0-9]$'
+      line={{ result_Server_ip.stdout }},{{ zabbix_server_replace_ip }}
+     when: result_Server_ip.stdout.count(zabbix_server_replace_ip) < 1
+
+   - name: register zabbix_agentd config ServerActive ip
+     shell: cat /etc/zabbix/zabbix_agentd.conf | grep '^ServerActive='
+     register: result_ServerActive_ip
+     changed_when: false
+
+   - name: modify zabbix_agentd config ServerActive ip
+     lineinfile: >
+      dest=/etc/zabbix/zabbix_agentd.conf
+      state=present
+      backrefs=no
+      regexp='^ServerActive=.*[0-9]$'
+      line={{ result_ServerActive_ip.stdout }},{{ zabbix_server_replace_ip }}:10051
+     when: result_ServerActive_ip.stdout.count(zabbix_server_replace_ip:10051) < 1
+  notify:
+    - restart zabbix-agent

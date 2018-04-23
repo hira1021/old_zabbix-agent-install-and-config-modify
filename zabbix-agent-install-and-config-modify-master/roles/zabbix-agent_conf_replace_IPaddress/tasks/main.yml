@@ -1,0 +1,17 @@
+   - name: modify zabbix_agentd config Server ip
+     lineinfile: >
+      dest=/etc/zabbix/zabbix_agentd.conf
+      state=present
+      backrefs=no
+      regexp='^Server=.*[0-9]$'
+      line="Server={{ zabbix_server_replace_ip }}"
+
+   - name: modify zabbix_agentd config ServerActive ip
+     lineinfile: >
+      dest=/etc/zabbix/zabbix_agentd.conf
+      state=present
+      backrefs=no
+      regexp='^ServerActive=.*[0-9]$'
+      line="^ServerActive={{ zabbix_server_replace_ip }}:10051"
+  notify:
+    - restart zabbix-agent

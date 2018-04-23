@@ -1,0 +1,4 @@
+---
+zabbix_server_ip: 192.168.215.175
+zabbix_server_replace_ip: 192.168.215.175
+zabbix_agent_version: 3.0.11-1.el7

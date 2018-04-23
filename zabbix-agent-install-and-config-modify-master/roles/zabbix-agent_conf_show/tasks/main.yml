@@ -1,0 +1,25 @@
+   - name: register zabbix_agentd config(Server ip)
+     shell: cat /etc/zabbix/zabbix_agentd.conf | grep '^Server='
+     register: result_Server_ip
+     changed_when: false
+
+   - name: show result var(result_Server_ip)
+     debug: var=result_Server_ip.stdout
+
+   - name: register zabbix_agentd config(ServerActive ip)
+     shell: cat /etc/zabbix/zabbix_agentd.conf | grep '^ServerActive='
+     register: result_ServerActive_ip
+     changed_when: false
+
+   - name: show result var(result_ServerActive_ip)
+     debug: var=result_ServerActive_ip.stdout
+
+   - name: register zabbix_agentd config(Hostname)
+     shell: cat /etc/zabbix/zabbix_agentd.conf | grep '^Hostname='
+     register: result_Hostname
+     changed_when: false
+
+   - name: show result var(result_Hostname)
+     debug: var=result_Hostname.stdout
+  notify:
+    - restart zabbix-agent
